@@ -1,0 +1,45 @@
+#For downloading Kafka
+wget https://archive.apache.org/dist/kafka/3.3.1/kafka_2.12-3.3.1.tgz
+
+#For extraction of the compressed file
+tar -xvf kafka_2.12-3.3.1.tgz
+
+-----------------------
+#To check the Java Version
+java -version
+
+#For installing in ubuntu
+sudo yum install java-1.8.0-openjdk
+
+#For installing in amazon linux
+sudo yum install java-1.8.0-amazon-corretto.x86_64
+
+#For changing the directory to kafka
+cd kafka_2.12-3.3.1
+
+Start Zoo-keeper:
+-------------------------------
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+Increase the memory for Kafka-server:
+----------------------------------------
+export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
+
+Start Kafka-server:
+----------------------------------------
+bin/kafka-server-start.sh config/server.properties
+
+#change server.properties so that it can run in public IP 
+Do a "sudo vi config/server.properties" - change ADVERTISED_LISTENERS to public ip of the EC2 instance
+
+Create the topic:
+-----------------------------
+bin/kafka-topics.sh --create --topic demo_test --bootstrap-server {Instance public IP}:9092 --replication-factor 1 --partitions 1
+
+Start Producer:
+--------------------------
+bin/kafka-console-producer.sh --topic demo_test --bootstrap-server {Instance public IP}:9092
+
+Start Consumer:
+-------------------------
+bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server {Instance public IP}:9092
