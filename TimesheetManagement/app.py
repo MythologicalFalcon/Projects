@@ -64,7 +64,7 @@ def login_form():
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.starttls()
         emailid = str(myresult[0][2])
-        s.login("charansri10@gmail.com", "ioczkmxoslrubkxo")
+        s.login("c<email>", "<password>")
         emailOTP = random.randint(100000,999999)
         global x
         x = emailOTP
@@ -107,22 +107,15 @@ def login_2fa_form():
     secret = myresult[0][6]
     emailOTP = request.form.get("emailOTP")
     emailOTP = x
-    #secret = "VDMJ5BUMRW4NZMH7XA3HOVLWSYA4JBSI"
-    # getting OTP provided by user
     otp = int(request.form.get("otp"))
     print("charan")
     print(secret)
-    # verifying submitted OTP with PyOTP
     if ((pyotp.TOTP(secret).verify(otp)) or (otp == emailOTP)):
-        # inform users if OTP is valid
-        #flash("The TOTP 2FA token is valid", "success")
-        #return "<h1>Charan Your verification is successful</h1>"
         if(myresult[0][4] == "manager"):
             return redirect(url_for("premanager"))
         else:
             return redirect(url_for("nonothers"))
     else:
-        # inform users if OTP is invalid
         flash("You have supplied an invalid 2FA token!", "danger")
         return redirect(url_for("login_2fa"))
 
@@ -140,7 +133,7 @@ def signup():
     fullname = request.form.get("fullname")
     role = request.form.get("role")
     key = fernetkey = Fernet.generate_key().decode()
-    secretAuthenticatorKey = "VDMJ5BUMRW4NZMH7XA3HOVLWSYA4JBSI"
+    secretAuthenticatorKey = "<SecretKey>"
 
     #password encryption using fernet Key
     

@@ -1,12 +1,12 @@
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAvL5L3SAtd_Q1T_pxU56GWttErgSdp9zc",
-    authDomain: "kahuoi-test.firebaseapp.com",
-    databaseURL: "https://kahuoi-test-default-rtdb.firebaseio.com",
-    projectId: "kahuoi-test",
-    storageBucket: "kahuoi-test.appspot.com",
-    messagingSenderId: "79750544866",
-    appId: "1:79750544866:web:136d8e868ea2c30ccdcdbb"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
 
 // Initialize Firebase

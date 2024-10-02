@@ -14,7 +14,7 @@ import chatgeneration as ct
 app = Flask(__name__)
 
 logging.basicConfig(filename="AppLogs.log", level=logging.INFO)
-openai.api_key = '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'
+openai.api_key = '<your_key>'
 cred = credentials.Certificate('firebase-credentials.json')
 firebase_admin.initialize_app(cred)
         
@@ -44,7 +44,7 @@ def send_message():
 
 def generatePalmResponse(userMessage):
     try:
-        palm.configure(api_key='AIzaSyB-a2U5Rwv2JVN7_6sq35ZGFug3EuUPfhE')
+        palm.configure(api_key='<your_key>')
         models = [m for m in palm.list_models() if 'BERT' in m.supported_generation_methods]
         model = 'models/text-bison-001'
         #model = ChatModel.from_pretrained("chat-bison@001")
