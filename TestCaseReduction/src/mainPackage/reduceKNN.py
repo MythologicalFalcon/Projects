@@ -26,8 +26,20 @@ def reduce_test_cases(input_file, output_file, n_neighbors):
         print("Error occurred during KNN:", e)
         return
 
-    reduced_indices = indices[:, 0] 
-    reduced_test_cases = df.iloc[reduced_indices].reset_index(drop=True)
+    # Column 0 of kneighbors() is the point itself when the model is fitted and queried
+    # on the same data, so indices[:, 0] is just the original row order and reduces
+    # nothing. Walk the rows instead and keep a case only if none of its neighbours has
+    # already been kept, which is what drops the near-duplicates.
+    kept = []
+    covered = set()
+    for row, neighbours in enumerate(indices):
+        if row in covered:
+            continue
+        kept.append(row)
+        covered.update(neighbours.tolist())
+
+    reduced_test_cases = df.iloc[kept].reset_index(drop=True)
+    print(f"Reduced {len(df)} test cases to {len(reduced_test_cases)}.")
 
     output_dir = os.path.dirname(output_file)
     os.makedirs(output_dir, exist_ok=True) 
